@@ -1,7 +1,6 @@
-from flask import Flask,render_template
+from flask import Flask, render_template
 import datetime
 import requests
-
 
 
 app = Flask(__name__)
@@ -23,12 +22,10 @@ def guess(name):
     return render_template("guess.html", name=name.title(), gender=data["gender"], age=response2["age"])
 
 
-@app.route("/blog")
-def get_blog():
+@app.route("/blog/<num>")
+def get_blog(num):
     response = requests.get("https://api.npoint.io/c790b4d5cab58020d391")
     all_post = response.json()
-    for post in all_post:
-        print(post['title'])
     return render_template("blog.html", posts=all_post)
 
 
