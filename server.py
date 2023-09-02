@@ -17,7 +17,10 @@ def home():
 def guess(name):
     response = requests.get(url=f"https://api.genderize.io/?name={name}")
     data = response.json()
-    return render_template("guess.html", name=data["name"], gender=data["gender"])
+
+    response2 = requests.get(url=f"https://api.agify.io?name={name}").json()
+
+    return render_template("guess.html", name=name.title(), gender=data["gender"], age=response2["age"])
 
 
 if __name__ == "__main__":
